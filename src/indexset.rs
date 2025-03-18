@@ -507,6 +507,14 @@ where
     }
 }
 
+#[cfg(feature="copy")]
+impl<T, S, const N: usize> Copy for IndexSet<T, S, N>
+where
+    T: Copy,
+    S: Copy,
+{
+}
+
 impl<T, S, const N: usize> Clone for IndexSet<T, S, N>
 where
     T: Clone,

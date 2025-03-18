@@ -35,6 +35,7 @@ pub(crate) trait SealedStorage {
 pub trait Storage: SealedStorage {}
 
 /// Implementation of [`Storage`] that stores the data in an array `[T; N]` whose size is known at compile time.
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum OwnedStorage<const N: usize> {}
 impl<const N: usize> Storage for OwnedStorage<N> {}
 impl<const N: usize> SealedStorage for OwnedStorage<N> {
@@ -48,6 +49,7 @@ impl<const N: usize> SealedStorage for OwnedStorage<N> {
 }
 
 /// Implementation of [`Storage`] that stores the data in an unsized `[T]`.
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
 pub enum ViewStorage {}
 impl Storage for ViewStorage {}
 impl SealedStorage for ViewStorage {

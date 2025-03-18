@@ -78,7 +78,7 @@ impl HashValue {
 }
 
 #[doc(hidden)]
-#[derive(Clone)]
+#[derive(Copy, Clone)]
 pub struct Bucket<K, V> {
     hash: HashValue,
     key: K,
@@ -363,6 +363,14 @@ where
             last_probe = probe;
         });
     }
+}
+
+#[cfg(feature="copy")]
+impl<K, V, const N: usize> Copy for CoreMap<K, V, N>
+where
+    K: Copy,
+    V: Copy,
+{
 }
 
 impl<K, V, const N: usize> Clone for CoreMap<K, V, N>
@@ -1205,6 +1213,15 @@ where
     fn index_mut(&mut self, key: &Q) -> &mut V {
         self.get_mut(key).expect("key not found")
     }
+}
+
+#[cfg(feature="copy")]
+impl<K, V, S, const N: usize> Copy for IndexMap<K, V, S, N>
+where
+    K: Copy,
+    V: Copy,
+    S: Copy,
+{
 }
 
 impl<K, V, S, const N: usize> Clone for IndexMap<K, V, S, N>

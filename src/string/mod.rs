@@ -682,6 +682,10 @@ impl<'a, const N: usize> iter::FromIterator<&'a str> for String<N> {
     }
 }
 
+#[cfg(feature="copy")]
+impl<const N: usize> Copy for String<N> {
+}
+
 impl<const N: usize> Clone for String<N> {
     fn clone(&self) -> Self {
         Self {

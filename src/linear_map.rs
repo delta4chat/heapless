@@ -423,9 +423,17 @@ where
     }
 }
 
+#[cfg(feature="copy")]
+impl<K, V, const N: usize> Copy for LinearMap<K, V, N>
+where
+    K: Copy,
+    V: Copy,
+{
+}
+
 impl<K, V, const N: usize> Clone for LinearMap<K, V, N>
 where
-    K: Eq + Clone,
+    K: Clone,
     V: Clone,
 {
     fn clone(&self) -> Self {

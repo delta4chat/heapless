@@ -198,7 +198,7 @@ impl<T, const N: usize> Vec<T, N> {
     }
 
     /// Clones a vec into a new vec
-    pub(crate) fn clone(&self) -> Self
+    pub(crate) fn _clone(&self) -> Self
     where
         T: Clone,
     {
@@ -1138,6 +1138,7 @@ impl<T, const N: usize, const M: usize> From<[T; M]> for Vec<T, N> {
     }
 }
 
+#[cfg(not(feature="copy"))]
 impl<T, S: Storage> Drop for VecInner<T, S> {
     fn drop(&mut self) {
         let mut_slice = self.as_mut_slice();
@@ -1237,6 +1238,13 @@ impl<T, const N: usize> Iterator for IntoIter<T, N> {
     }
 }
 
+#[cfg(feature="copy")]
+impl<T, const N: usize> Copy for IntoIter<T, N>
+where
+    T: Copy,
+{
+}
+
 impl<T, const N: usize> Clone for IntoIter<T, N>
 where
     T: Clone,
@@ -1258,6 +1266,7 @@ where
     }
 }
 
+#[cfg(not(feature="copy"))]
 impl<T, const N: usize> Drop for IntoIter<T, N> {
     fn drop(&mut self) {
         unsafe {
@@ -1457,12 +1466,19 @@ impl<T, S: Storage> AsMut<[T]> for VecInner<T, S> {
     }
 }
 
+#[cfg(feature="copy")]
+impl<T, const N: usize> Copy for Vec<T, N>
+where
+    T: Copy,
+{
+}
+
 impl<T, const N: usize> Clone for Vec<T, N>
 where
     T: Clone,
 {
     fn clone(&self) -> Self {
-        self.clone()
+        self._clone()
     }
 }
 

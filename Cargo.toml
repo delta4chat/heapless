@@ -15,6 +15,9 @@ repository = "https://github.com/rust-embedded/heapless"
 version = "0.8.0"
 
 [features]
+# Enable Copy trait for all types that possible to implement it.
+copy = []
+
 # Enable polyfilling of atomics via `portable-atomic`.
 # `portable-atomic` polyfills some functionality by default, but to get full atomics you must
 # enable one of its features to tell it how to do it. See `portable-atomic` documentation for details.

@@ -430,6 +430,13 @@ where
     }
 }
 
+#[cfg(feature="copy")]
+impl<T, const N: usize> Copy for HistoryBuffer<T, N>
+where
+    T: Copy,
+{
+}
+
 impl<T, const N: usize> Clone for HistoryBuffer<T, N>
 where
     T: Clone,
@@ -445,6 +452,7 @@ where
     }
 }
 
+#[cfg(not(feature="copy"))]
 impl<T, S: Storage> Drop for HistoryBufferInner<T, S> {
     fn drop(&mut self) {
         unsafe { self.drop_contents() }

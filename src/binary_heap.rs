@@ -634,10 +634,16 @@ where
     }
 }
 
+#[cfg(feature="copy")]
+impl<T, K, const N: usize> Copy for BinaryHeap<T, K, N>
+where
+    T: Copy,
+{
+}
+
 impl<T, K, const N: usize> Clone for BinaryHeap<T, K, N>
 where
-    K: Kind,
-    T: Ord + Clone,
+    T: Clone,
 {
     fn clone(&self) -> Self {
         Self {

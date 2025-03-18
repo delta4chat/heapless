@@ -866,6 +866,7 @@ impl<T, const N: usize> Default for Deque<T, N> {
     }
 }
 
+#[cfg(not(feature="copy"))]
 impl<T, S: Storage> Drop for DequeInner<T, S> {
     fn drop(&mut self) {
         // safety: `self` is left in an inconsistent state but it doesn't matter since
@@ -934,6 +935,13 @@ impl<'a, T, S: Storage> IntoIterator for &'a mut DequeInner<T, S> {
     fn into_iter(self) -> Self::IntoIter {
         self.iter_mut()
     }
+}
+
+#[cfg(feature="copy")]
+impl<T, const N: usize> Copy for Deque<T, N>
+where
+    T: Copy,
+{
 }
 
 impl<T, const N: usize> Clone for Deque<T, N>
