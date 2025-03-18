@@ -1021,6 +1021,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(not(feature="copy"))]
     fn drop() {
         droppable!();
 
@@ -1198,6 +1199,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(not(feature="copy"))]
     fn iter_move_drop() {
         droppable!();
 

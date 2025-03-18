@@ -694,6 +694,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(not(feature="copy"))]
     fn drop() {
         droppable!();
 
@@ -733,6 +734,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(not(feature="copy"))]
     fn into_vec() {
         droppable!();
 

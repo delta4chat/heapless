@@ -196,6 +196,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(not(feature="copy"))]
     fn drain_drop_rest() {
         droppable!();
 

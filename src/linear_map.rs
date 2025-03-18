@@ -615,6 +615,7 @@ mod test {
     }
 
     #[test]
+    #[cfg(not(feature="copy"))]
     fn drop() {
         droppable!();
 
